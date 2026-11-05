@@ -1,0 +1,12 @@
+# Apache / cPanel hosting
+DirectoryIndex index.html
+ErrorDocument 404 /404.html
+RewriteEngine On
+# /services -> services.html (works with or without .html)
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}.html -f
+RewriteRule ^(.+?)/?$ $1.html [L]
+# /index.html -> / (direct browser requests only, avoids loops)
+RewriteCond %{THE_REQUEST} \s/index\.html[\s?]
+RewriteRule ^index\.html$ / [R=301,L]
